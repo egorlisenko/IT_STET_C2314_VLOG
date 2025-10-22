@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Адмін-панель</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  {% if news is none %}
+  <form method="POST" class="login">
+    <h2>Вхід для копірайтера</h2>
+    <input type="text" name="username" placeholder="Логін" required>
+    <input type="password" name="password" placeholder="Пароль" required>
+    <button type="submit">Увійти</button>
+  </form>
+  {% else %}
+  <form method="POST" action="/add_news" class="add-news">
+    <h2>Додати новину</h2>
+    <input type="text" name="title" placeholder="Заголовок" required>
+    <textarea name="text" placeholder="Текст новини" required></textarea>
+    <button type="submit">Додати</button>
+  </form>
+
+  <div class="news-list">
+    <h3>Існуючі новини:</h3>
+    {% for item in news %}
+      <div class="news-item">
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.text }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</body>
+</html>
